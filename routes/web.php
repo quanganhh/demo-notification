@@ -18,6 +18,12 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('home', 'UserController@index')->name('home');
+Route::get('home', 'HomeController@index')->name('home');
 Route::post('save-device-token', 'UserController@saveToken')->name('save-device-token');
 Route::post('send-push', 'UserController@sendPush')->name('send-push');
+
+Route::get('/t', function () {
+    event(new \App\Events\SendMessage());
+    dd('Event Run Successfully.');
+});
+

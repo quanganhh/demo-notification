@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Repositories\Eloquents\UserRepository;
+use App\Repositories\Interfaces\IUserRepository;
 
 class HomeController extends Controller
 {
+    protected $userRepository;
+    protected $pusherRepository;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $userRepository)
     {
         $this->middleware('auth');
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -23,6 +27,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return $this->userRepository->getUserlasted();
+    }
+
+    public function about()
+    {
+        return view('about');
+    }
+
+    public function conctact()
+    {
+        return view('contact');
     }
 }
